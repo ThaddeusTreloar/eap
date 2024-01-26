@@ -1,4 +1,4 @@
-# Eap (Environment Arg Parse)
+# Eap (Environment Argument Parser)
 !! UNDER CONSTRUCTION !!
 
 A crate for easily creating environment configurations.
