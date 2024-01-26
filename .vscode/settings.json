@@ -1,0 +1,6 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "./eap_derive/Cargo.toml"
+    ],
+    "rust-analyzer.cargo.features": "all"
+}

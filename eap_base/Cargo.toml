@@ -1,0 +1,12 @@
+[package]
+name = "eap_base"
+version = "0.0.1"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "eap_base"
+
+[dependencies]
+dotenvy = "0.15.7"
