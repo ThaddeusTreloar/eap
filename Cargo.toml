@@ -5,6 +5,8 @@ members = [
 ]
 
 [package]
+edition = "2021"
+rust-version = "1.75"
 name = "eap"
 version = "0.0.1"
 description = ""
@@ -12,10 +14,15 @@ repository = ""
 categories = []
 keywords = []
 
+[dev-dependencies]
+# Dependencies for examples
+aws-config = "1.1.4"
+aws-sdk-ssm = "1.12.0"
+tokio = {"version" = "1.35.1", features = ["macros", "rt-multi-thread"]}
+
 [dependencies]
 eap_base = { path = "./eap_base" }
 eap_derive = { path = "./eap_derive", optional = true}
-proc-macro2 = "1.0.78"
 
 [features]
 default = []
@@ -24,6 +31,11 @@ derive = ["dep:eap_derive"]
 [[example]]
 name = "playground"
 path = "examples/playground.rs"
+required_features = ["derive"]
+
+[[example]]
+name = "aws_config"
+path = "examples/aws_config.rs"
 required_features = ["derive"]
 
 [lib]

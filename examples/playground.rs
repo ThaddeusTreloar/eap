@@ -22,8 +22,8 @@ fn main() {
     println!("PORT: {}", config.port);
     println!("HOST: {}", config.host);
 
-    let dot_config = CustomConfig::parse(DotEnv::default());
-
+    let dot_config = CustomConfig::parse_env::<DotEnv>();
+    
     println!("PORT: {}", dot_config.port);
     println!("HOST: {}", dot_config.host);
 
