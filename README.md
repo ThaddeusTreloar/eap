@@ -1,4 +1,4 @@
-# Eap (Environment Argument Parser)
+# Eap (Environment Parser)
 !! UNDER CONSTRUCTION !!
 
 A crate for easily creating environment configurations.
@@ -25,8 +25,36 @@ fn main() {
 }
 
 ```
+We currently provide rudimentary support for aws ssm:
+```
+#[derive(eap::Config)]
+struct CustomConfig {
+    #[var(default = 443)]
+    port: u16,
+    #[var(default = "localhost".to_string())]
+    host: String,
+}
 
-It also provides the ability to build custom backends:
+#[tokio::main]
+async fn main() -> Result<(), AwsEnvironmentError> {
+    let config = aws_config::defaults(BehaviorVersion::latest())
+        .load()
+        .await;
+
+    let client = aws_sdk_ssm::Client::new(&config);
+
+    let aws_environment = AwsEnvironment::from_ssm_client(client, "sdk.test")
+        .await?;
+
+    let custom_config = CustomConfig::parse(aws_environment);
+
+    println!("port: {}", custom_config.port);
+    println!("host: {}", custom_config.host);
+
+    Ok(())
+}
+```
+Custom backends can also be build by implementing the Environment Trait
 ```
 pub struct CustomBackend {
     pub(crate) some_api_client: SomeApiClient,
