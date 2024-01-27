@@ -17,17 +17,17 @@ fn main() {
 
     println!("{s}");
 
-    let config = CustomConfig::parse(e);
+    let mut config: CustomConfig = e.into();
 
     println!("PORT: {}", config.port);
     println!("HOST: {}", config.host);
 
-    let dot_config = CustomConfig::parse_env::<DotEnv>();
+    config = CustomConfig::parse_env::<DotEnv>();
     
-    println!("PORT: {}", dot_config.port);
-    println!("HOST: {}", dot_config.host);
+    println!("PORT: {}", config.port);
+    println!("HOST: {}", config.host);
 
-    let def_config = CustomConfig::parse_env::<Local>();
+    config = CustomConfig::parse_env::<Local>();
 
-    println!("PORT: {}", def_config.port);
+    println!("PORT: {}", config.port);
 }

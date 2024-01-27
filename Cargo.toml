@@ -18,6 +18,7 @@ keywords = []
 # Dependencies for examples
 aws-config = "1.1.4"
 aws-sdk-ssm = "1.12.0"
+aws-sdk-secretsmanager = "1.14.0"
 tokio = {"version" = "1.35.1", features = ["macros", "rt-multi-thread"]}
 
 [dependencies]
@@ -36,6 +37,11 @@ required_features = ["derive"]
 [[example]]
 name = "aws_config"
 path = "examples/aws_config.rs"
+required_features = ["derive"]
+
+[[example]]
+name = "aws_secret"
+path = "examples/aws_secret.rs"
 required_features = ["derive"]
 
 [lib]

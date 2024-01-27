@@ -20,10 +20,8 @@ async fn main() -> Result<(), AwsEnvironmentError> {
 
     let client = aws_sdk_ssm::Client::new(&config);
 
-    let aws_environment = AwsEnvironment::from_ssm_client(client, "sdk.test")
-        .await?;
-
-    let custom_config = CustomConfig::parse(aws_environment);
+    let custom_config: CustomConfig = AwsEnvironment::from_ssm_client(client, "sdk.test")
+        .await?.into();
 
     println!("port: {}", custom_config.port);
     println!("host: {}", custom_config.host);

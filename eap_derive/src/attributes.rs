@@ -33,6 +33,7 @@ pub fn create_impl(
                             }
                         }
                     ).unwrap();
+                    
                     def.unwrap()
                 },
                 None => panic!("Invalid attribute")
@@ -46,6 +47,12 @@ pub fn create_impl(
                 Self {
                     #(#field_names: backend.try_get_or::<#field_types>(#field_literals, #field_defaults)),*
                 }
+            }
+        }
+
+        impl <E: Environment> From<E> for #name {
+            fn from(env: E) -> Self {
+                Self::parse(env)
             }
         }
     )

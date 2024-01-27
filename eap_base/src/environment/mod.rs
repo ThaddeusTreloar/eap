@@ -1,5 +1,6 @@
 use std::str::FromStr;
 
+pub mod aws_secret;
 pub mod aws_config;
 
 mod dotenv;
