@@ -1,5 +1,6 @@
 use std::str::FromStr;
 
+use aws_config::SdkConfig;
 use aws_sdk_ssm::{types::Parameter, Client};
 use serde_json::{Map, Value};
 
@@ -22,8 +23,17 @@ pub enum AwsEnvironmentError {
 }
 
 impl AwsEnvironment {
+    pub async fn from_sdkconfig(
+        config: &SdkConfig,
+        config_name: &str,
+    ) -> Result<Self, AwsEnvironmentError> {
+        let client = aws_sdk_ssm::Client::new(config);
+
+        Self::from_ssm_client(&client, config_name).await
+    }
+
     pub async fn from_ssm_client(
-        client: Client,
+        client: &Client,
         config: &str,
     ) -> Result<Self, AwsEnvironmentError> {
         let param = client

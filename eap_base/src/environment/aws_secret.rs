@@ -1,5 +1,6 @@
 use std::str::FromStr;
 
+use aws_config::SdkConfig;
 use aws_sdk_secretsmanager::Client;
 use serde_json::{Map, Value};
 use base64::prelude::{BASE64_STANDARD, Engine};
@@ -29,8 +30,17 @@ pub enum AwsSecretError {
 }
 
 impl AwsSecret {
+    pub async fn from_sdkconfig(
+        config: &SdkConfig,
+        secret_name: &str,
+    ) -> Result<Self, AwsSecretError> {
+        let client = aws_sdk_secretsmanager::Client::new(config);
+
+        Self::from_secretsmanager_client(&client, secret_name).await
+    }
+
     pub async fn from_secretsmanager_client(
-        client: Client,
+        client: &Client,
         secret_name: &str,
     ) -> Result<Self, AwsSecretError> {
         let client_response = client
