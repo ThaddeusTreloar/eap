@@ -41,8 +41,9 @@ async fn main() -> Result<(), AwsEnvironmentError> {
         .load()
         .await;
 
-    let custom_config: CustomConfig = AwsEnvironment::from_sdkconfig(&config, "sdk.test")
-        .await?.into();
+    let custom_config: CustomConfig = AwsEnvironment::from_sdkconfig(
+            &config, "sdk.test"
+        ).await?.into();
 
     println!("port: {}", custom_config.port);
     println!("host: {}", custom_config.host);
