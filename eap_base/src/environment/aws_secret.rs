@@ -29,7 +29,7 @@ pub enum AwsSecretError {
 }
 
 impl AwsSecret {
-    pub async fn from_ssm_client(
+    pub async fn from_secretsmanager_client(
         client: Client,
         secret_name: &str,
     ) -> Result<Self, AwsSecretError> {

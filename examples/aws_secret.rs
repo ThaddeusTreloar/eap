@@ -20,7 +20,7 @@ async fn main() -> Result<(), AwsSecretError> {
 
     let client = aws_sdk_secretsmanager::Client::new(&config);
 
-    let custom_config: MySecret = AwsSecret::from_ssm_client(client, "secrets.test")
+    let custom_config: MySecret = AwsSecret::from_secretsmanager_client(client, "secrets.test")
         .await?.into();
 
     println!("client_id: {}", custom_config.client_id);
