@@ -8,6 +8,7 @@ struct CustomConfig {
     port: u16,
     #[var(default = "localhost".to_string())]
     host: String,
+    qps_limit: Option<usize>,
 }
 
 fn main() {
@@ -30,4 +31,9 @@ fn main() {
     config = CustomConfig::parse_env::<Local>();
 
     println!("PORT: {}", config.port);
+    
+    match config.qps_limit {
+        Some(limit) => println!("QPS_LIMIT: {}", limit),
+        None => println!("QPS_LIMIT: None"),
+    }
 }

@@ -9,7 +9,9 @@ pub use dotenv::DotEnv;
 mod local;
 pub use local::Local;
 
+#[derive(Debug, thiserror::Error)]
 pub enum Error {
+    #[error("Invalid value")]
     InvalidValue
 }
 
@@ -17,11 +19,11 @@ pub trait Environment {
     fn try_get<T: FromStr>(&self, key: &str) -> Result<Option<T>, Error> 
     {
         match self.get::<String>(key) {
-            Some(value) => Ok(Some(
+            Some(value) if !value.is_empty() => Ok(Some(
                 value.parse()
                 .map_err(|_| Error::InvalidValue)?
             )),
-            None => Ok(None),
+            _ => Ok(None),
         }
     }
 

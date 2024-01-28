@@ -10,6 +10,8 @@ struct CustomConfig {
     port: u16,
     #[var(default = "localhost".to_string())]
     host: String,
+    #[var(default = false)]
+    enable_ssl: bool,
 }
 
 #[tokio::main]
@@ -23,6 +25,7 @@ async fn main() -> Result<(), AwsEnvironmentError> {
 
     println!("port: {}", custom_config.port);
     println!("host: {}", custom_config.host);
+    println!("enable_ssl: {}", custom_config.enable_ssl);
 
     Ok(())
 }

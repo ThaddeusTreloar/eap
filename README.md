@@ -12,6 +12,7 @@ use eap::config::Config;
 struct MyConfig {
     #[var(default = 443)]
     port: u16,
+    qps_limit: Option<usize>
 }
 
 fn main() {
@@ -22,6 +23,11 @@ fn main() {
     let dotenv_config = MyConfig::parse_env::<DotEnv>();
 
     println!("Port: {}", dotenv_config.port);
+
+    match config.qps_limit {
+        Some(limit) => println!("QPS_LIMIT: {}", limit),
+        None => println!("QPS_LIMIT: None"),
+    } 
 }
 
 ```
